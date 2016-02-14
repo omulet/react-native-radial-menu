@@ -1,6 +1,9 @@
 ## React Native Radial Menu
 <img width="185px" align="right" src="https://raw.githubusercontent.com/omulet/react-native-radial-menu/master/examples/radial-menu-example.gif" />
 
+[![npm version](https://img.shields.io/npm/v/react-native-radial-menu.svg)](https://www.npmjs.com/package/react-native-radial-menu)
+[![npm downloads](https://img.shields.io/npm/dm/react-native-radial-menu.svg)](https://www.npmjs.com/package/react-native-radial-menu)
+
 ### Installation
 `npm install react-native-radial-menu`
 
