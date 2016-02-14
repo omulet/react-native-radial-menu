@@ -1,0 +1,35 @@
+{
+  "name": "react-native-radial-menu",
+  "version": "1.0.0",
+  "description": "React Native Radial Menu",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:omulet/react-native-radial-menu.git"
+  },
+  "dependencies": {
+
+  },
+  "devDependencies": {
+
+  },
+  "keywords": [
+    "react",
+    "react-native",
+    "react-component",
+    "radial menu",
+    "menu",
+    "ios",
+    "android",
+    "react native animation"
+  ],
+  "author": "Bogdan Silivestru <omulet@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/omulet/react-native-radial-menu/issues"
+  },
+  "homepage": "https://github.com/omulet/react-native-radial-menu"
+}
