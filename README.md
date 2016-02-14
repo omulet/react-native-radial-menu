@@ -1,4 +1,5 @@
 ## React Native Radial Menu
+<img width="185px" align="right" src="https://raw.githubusercontent.com/omulet/react-native-radial-menu/master/examples/radial-menu-example.gif" />
 
 ### Installation
 `npm install react-native-radial-menu`
