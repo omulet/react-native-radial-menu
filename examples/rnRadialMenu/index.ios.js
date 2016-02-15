@@ -11,41 +11,73 @@ import React, {
   View
 } from 'react-native';
 
-var RadialMenu = require('react-native-radial-menu');
+var RadialMenu = require('./node_modules/react-native-radial-menu');
 
-class rnRadialMenu extends Component {
+var rnRadialMenu = React.createClass({
 
-  renderItems() {
-    return [...Array(5)].map((_, i) => {
+  componentWillMount() {
+    this.setState({ output: "" });
+  },
+
+  _onOpen() {
+    this.setState({
+      output: 'on menu open'
+    })
+  },
+
+  _onClose() {
+    this.setState({
+      output: 'on menu close'
+    })
+  },
+
+  renderItems(count) {
+    return [...Array(count)].map((_, i) => {
       return (
-        <View style={styles.item} key={i}>
-          <Text onSelect={() => {console.log("onSelect #{i}")}}>{i}</Text>
+        <View style={styles.item} key={i}
+          onSelect={ () => {this.setState({output: `onSelect ${i}`})} } >
+          <Text>{i}</Text>
         </View>
       );
-    });
-  }
+    })
+  },
+
+  renderRoot() {
+    return (
+      <View style={[styles.item, styles.root]}>
+        <Text>MENU</Text>
+      </View>
+    )
+  },
 
   render() {
     return (
       <View style={styles.container}>
+        <Text style={styles.output}>{this.state.output}</Text>
         <RadialMenu
-          onOpen={() => {console.log("on menu open");}}
-          onClose={() => {console.log("on menu close");}} >
+          onOpen ={ this._onOpen }
+          onClose={ this._onClose } >
 
-          <View style={[styles.item, styles.root]}>
-            <Text>MENU</Text>
-          </View>
-          { this.renderItems() }
+          { this.renderRoot() }
+          { this.renderItems(5) }
+        </RadialMenu>
+
+        <RadialMenu spreadAngle={120} startAngle={30}
+          onOpen ={ this._onOpen }
+          onClose={ this._onClose } >
+
+          { this.renderRoot() }
+          { this.renderItems(4) }
         </RadialMenu>
       </View>
-    );
-  }
-}
+    )
+  },
+});
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
