@@ -67,20 +67,22 @@ var RadialMenu = React.createClass({
   },
 
   itemPanListener: function(e, gestureState) {
-    var newSelected = this.computeNewSelected(gestureState);
-    if (this.state.selectedItem !== newSelected) {
-      if (this.state.selectedItem !== null) {
-        var restSpot = this.state.item_spots[this.state.selectedItem];
-        Animated.spring(this.state.item_anims[this.state.selectedItem], {
-          toValue: restSpot,
-        }).start();
+    if (!this.RMOpening) {
+      var newSelected = this.computeNewSelected(gestureState);
+      if (this.state.selectedItem !== newSelected) {
+        if (this.state.selectedItem !== null) {
+          var restSpot = this.state.item_spots[this.state.selectedItem];
+          Animated.spring(this.state.item_anims[this.state.selectedItem], {
+            toValue: restSpot,
+          }).start();
+        }
+        if (newSelected !== null && newSelected !== 0) {
+          Animated.spring(this.state.item_anims[newSelected], {
+            toValue: this.state.item_anims[0],
+          }).start();
+        }
+        this.state.selectedItem = newSelected;
       }
-      if (newSelected !== null && newSelected !== 0) {
-        Animated.spring(this.state.item_anims[newSelected], {
-          toValue: this.state.item_anims[0],
-        }).start();
-      }
-      this.state.selectedItem = newSelected;
     }
   },
 
@@ -114,7 +116,10 @@ var RadialMenu = React.createClass({
               tension: 80
             })
           )
-        ).start(() => {this.RMOpening = false});
+        ).start();
+        // Make sure all items gets to innitial position
+        // before we start tracking them
+        setTimeout(() => {this.RMOpening = false}, 500);
       },
       onPanResponderMove: Animated.event(
         [ null, {dx: this.state.item_anims[0].x, dy: this.state.item_anims[0].y} ],
@@ -148,14 +153,13 @@ var RadialMenu = React.createClass({
 
   render: function() {
     return (
-      <View style={{
-        position: 'relative',
-        backgroundColor: 'transparent',
-        transform: [
-          {translateX: -this.props.itemRadius},
-          {translateY: -this.props.itemRadius}
-        ]
-      }}>
+      <View style={[
+        { position: 'relative',
+          backgroundColor: 'transparent',
+          width: this.props.itemRadius * 2,
+          height: this.props.itemRadius * 2,
+        },
+        this.props.style]}>
         {this.state.item_anims.map((_, i) => {
           var j = this.state.item_anims.length - i - 1;
           var handlers = j > 0 ? {} : this.state.itemPanResponder.panHandlers;
