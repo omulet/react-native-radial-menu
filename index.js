@@ -67,8 +67,9 @@ var RadialMenu = React.createClass({
   },
 
   itemPanListener: function(e, gestureState) {
+    var newSelected = null;
     if (!this.RMOpening) {
-      var newSelected = this.computeNewSelected(gestureState);
+      newSelected = this.computeNewSelected(gestureState);
       if (this.state.selectedItem !== newSelected) {
         if (this.state.selectedItem !== null) {
           var restSpot = this.state.item_spots[this.state.selectedItem];
@@ -92,6 +93,8 @@ var RadialMenu = React.createClass({
     this.state.selectedItem && !this.RMOpening &&
     this.state.children[this.state.selectedItem].props.onSelect &&
     this.state.children[this.state.selectedItem].props.onSelect();
+
+    this.state.selectedItem = null;
 
     this.state.item_anims.forEach((item, i) => {
       Animated.spring(item, {
