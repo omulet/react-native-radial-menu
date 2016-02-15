@@ -1,6 +1,6 @@
 {
   "name": "react-native-radial-menu",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React Native Radial Menu",
   "main": "index.js",
   "scripts": {
@@ -10,12 +10,8 @@
     "type": "git",
     "url": "git@github.com:omulet/react-native-radial-menu.git"
   },
-  "dependencies": {
-
-  },
-  "devDependencies": {
-
-  },
+  "dependencies": {},
+  "devDependencies": {},
   "keywords": [
     "react",
     "react-native",
