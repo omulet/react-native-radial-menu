@@ -16,6 +16,12 @@ const generateRadialPositions = (count, radius, spread_angle, start_angle) => {
 export default class RadialMenu extends Component {
   constructor(props) {
     super(props);
+    this.childrenToArray = this.childrenToArray.bind(this);
+    this.itemPanListener = this.itemPanListener.bind(this);
+    this.releaseItem = this.releaseItem.bind(this);
+    this.createPanResponder = this.createPanResponder.bind(this);
+    this.computeNewSelected = this.computeNewSelected.bind(this);
+    
     let children = this.childrenToArray();
     let initial_spots = generateRadialPositions(
       children.length - 1,
@@ -32,11 +38,6 @@ export default class RadialMenu extends Component {
       itemPanResponder: null,
       children: children,
     };
-    this.childrenToArray = this.childrenToArray.bind(this);
-    this.itemPanListener = this.itemPanListener.bind(this);
-    this.releaseItem = this.releaseItem.bind(this);
-    this.createPanResponder = this.createPanResponder.bind(this);
-    this.computeNewSelected = this.computeNewSelected.bind(this);
 
     this.RMOpening = false;
   }
@@ -121,9 +122,7 @@ export default class RadialMenu extends Component {
     });
   }
 
-  computeNewSelected(
-    gestureState
-  ): ?number {
+  computeNewSelected(gestureState) {
     var {dx, dy} = gestureState;
     var minDist = Infinity;
     var newSelected = null;
