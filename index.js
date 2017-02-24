@@ -32,6 +32,12 @@ export default class RadialMenu extends Component {
       itemPanResponder: null,
       children: children,
     };
+    this.childrenToArray = this.childrenToArray.bind(this);
+    this.itemPanListener = this.itemPanListener.bind(this);
+    this.releaseItem = this.releaseItem.bind(this);
+    this.createPanResponder = this.createPanResponder.bind(this);
+    this.computeNewSelected = this.computeNewSelected.bind(this);
+
     this.RMOpening = false;
   }
 
