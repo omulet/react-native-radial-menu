@@ -1,14 +1,7 @@
-'use strict';
+import React, { Component } from 'react';
+import { Animated, PanResponder, StyleSheet, View } from 'react-native';
 
-var React = require('react-native');
-var {
-  Animated,
-  PanResponder,
-  StyleSheet,
-  View,
-} = React;
-
-function generateRadialPositions(count, radius, spread_angle, start_angle) {
+const generateRadialPositions = (count, radius, spread_angle, start_angle) => {
 	var span = spread_angle < 360 ? 1 : 0;
   var start = start_angle * Math.PI / 180;
   var rad = spread_angle * Math.PI * 2 / 360 / (count - span);
@@ -20,29 +13,17 @@ function generateRadialPositions(count, radius, spread_angle, start_angle) {
   });
 };
 
-var RadialMenu = React.createClass({
-
-  RMOpening: false,
-
-  getDefaultProps: function() {
-    return {
-      itemRadius: 30,
-      menuRadius: 100,
-      spreadAngle: 360,
-      startAngle: 0
-    };
-  },
-
-  getInitialState: function() {
-    var children = this.childrenToArray();
-    var initial_spots = generateRadialPositions(
+export default class RadialMenu extends Component {
+  constructor(props) {
+    super(props);
+    let children = this.childrenToArray();
+    let initial_spots = generateRadialPositions(
       children.length - 1,
       this.props.menuRadius,
       this.props.spreadAngle,
       this.props.startAngle
     );
-    initial_spots.unshift({x: 0, y: 0});
-    return {
+    this.state = {
       item_spots: initial_spots,
       item_anims: initial_spots.map((_, i) => {
         return new Animated.ValueXY();
@@ -51,14 +32,15 @@ var RadialMenu = React.createClass({
       itemPanResponder: null,
       children: children,
     };
-  },
+    this.RMOpening = false;
+  }
 
-  componentWillMount: function() {
+  componentWillMount() {
     this.setState({ itemPanResponder: this.createPanResponder() });
   },
 
   // React.Children.toArray is still not exposed on RN 0.20.0-rc1
-  childrenToArray: function() {
+  childrenToArray() {
     let children = [];
     React.Children.forEach(this.props.children, (child) => {
       children.push(child)
@@ -66,7 +48,7 @@ var RadialMenu = React.createClass({
     return children;
   },
 
-  itemPanListener: function(e, gestureState) {
+  itemPanListener(e, gestureState) {
     var newSelected = null;
     if (!this.RMOpening) {
       newSelected = this.computeNewSelected(gestureState);
@@ -87,7 +69,7 @@ var RadialMenu = React.createClass({
     }
   },
 
-  releaseItem: function() {
+  releaseItem() {
     this.props.onClose && this.props.onClose();
 
     this.state.selectedItem && !this.RMOpening &&
@@ -105,7 +87,7 @@ var RadialMenu = React.createClass({
     });
   },
 
-  createPanResponder: function() {
+  createPanResponder() {
     return PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onPanResponderGrant: () => {
@@ -133,7 +115,7 @@ var RadialMenu = React.createClass({
     });
   },
 
-  computeNewSelected: function(
+  computeNewSelected(
     gestureState: Object,
   ): ?number {
     var {dx, dy} = gestureState;
@@ -154,7 +136,7 @@ var RadialMenu = React.createClass({
   },
 
 
-  render: function() {
+  render() {
     return (
       <View style={[
         { position: 'relative',
@@ -181,7 +163,11 @@ var RadialMenu = React.createClass({
       </View>
     );
   }
+}
 
-});
-
-module.exports = RadialMenu;
+RadialMenu.defaultProps = {
+  itemRadius: 30,
+  menuRadius: 100,
+  spreadAngle: 360,
+  startAngle: 0
+};
