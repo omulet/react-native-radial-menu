@@ -37,7 +37,7 @@ export default class RadialMenu extends Component {
 
   componentWillMount() {
     this.setState({ itemPanResponder: this.createPanResponder() });
-  },
+  }
 
   // React.Children.toArray is still not exposed on RN 0.20.0-rc1
   childrenToArray() {
@@ -46,7 +46,7 @@ export default class RadialMenu extends Component {
       children.push(child)
     });
     return children;
-  },
+  }
 
   itemPanListener(e, gestureState) {
     var newSelected = null;
@@ -67,7 +67,7 @@ export default class RadialMenu extends Component {
         this.state.selectedItem = newSelected;
       }
     }
-  },
+  }
 
   releaseItem() {
     this.props.onClose && this.props.onClose();
@@ -85,7 +85,7 @@ export default class RadialMenu extends Component {
         friction: 10
       }).start();
     });
-  },
+  }
 
   createPanResponder() {
     return PanResponder.create({
@@ -113,10 +113,10 @@ export default class RadialMenu extends Component {
       onPanResponderRelease: this.releaseItem,
       onPanResponderTerminate: this.releaseItem,
     });
-  },
+  }
 
   computeNewSelected(
-    gestureState: Object,
+    gestureState
   ): ?number {
     var {dx, dy} = gestureState;
     var minDist = Infinity;
@@ -133,7 +133,7 @@ export default class RadialMenu extends Component {
       });
     }
     return newSelected;
-  },
+  }
 
 
   render() {
