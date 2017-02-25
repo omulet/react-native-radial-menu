@@ -1,35 +1,42 @@
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
+ * @flow
  */
-'use strict';
-import React, {
+
+import React, { Component } from 'react';
+import {
   AppRegistry,
-  Component,
   StyleSheet,
   Text,
   View
 } from 'react-native';
 
-var RadialMenu = require('./node_modules/react-native-radial-menu');
+import RadialMenu from './node_modules/react-native-radial-menu'
 
-var rnRadialMenu = React.createClass({
-
+export default class rnRadialMenu extends Component {
+  
+  constructor(props) {
+    super(props);
+    this._onOpen = this._onOpen.bind(this);
+    this._onClose = this._onClose.bind(this);
+  }
+  
   componentWillMount() {
     this.setState({ output: "" });
-  },
+  }
 
   _onOpen() {
     this.setState({
       output: 'on menu open'
     })
-  },
+  }
 
   _onClose() {
     this.setState({
       output: 'on menu close'
     })
-  },
+  }
 
   renderItems(count) {
     return [...Array(count)].map((_, i) => {
@@ -40,7 +47,7 @@ var rnRadialMenu = React.createClass({
         </View>
       );
     })
-  },
+  }
 
   renderRoot() {
     return (
@@ -48,7 +55,7 @@ var rnRadialMenu = React.createClass({
         <Text>MENU</Text>
       </View>
     )
-  },
+  }
 
   render() {
     return (
@@ -71,8 +78,8 @@ var rnRadialMenu = React.createClass({
         </RadialMenu>
       </View>
     )
-  },
-});
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
