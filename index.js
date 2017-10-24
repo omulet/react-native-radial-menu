@@ -16,13 +16,12 @@ const generateRadialPositions = (count, radius, spread_angle, start_angle) => {
 export default class RadialMenu extends Component {
   constructor(props) {
     super(props);
-    this.childrenToArray = this.childrenToArray.bind(this);
     this.itemPanListener = this.itemPanListener.bind(this);
     this.releaseItem = this.releaseItem.bind(this);
     this.createPanResponder = this.createPanResponder.bind(this);
     this.computeNewSelected = this.computeNewSelected.bind(this);
 
-    let children = this.childrenToArray();
+    let children = React.Children.toArray(this.props.children);
     let initial_spots = generateRadialPositions(
       children.length - 1,
       this.props.menuRadius,
@@ -45,15 +44,6 @@ export default class RadialMenu extends Component {
 
   componentWillMount() {
     this.setState({ itemPanResponder: this.createPanResponder() });
-  }
-
-  // React.Children.toArray is still not exposed on RN 0.20.0-rc1
-  childrenToArray() {
-    let children = [];
-    React.Children.forEach(this.props.children, (child) => {
-      children.push(child)
-    });
-    return children;
   }
 
   itemPanListener(e, gestureState) {
