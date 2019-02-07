@@ -9,7 +9,7 @@
 
 ### Usage
 ```javascript
-var RadialMenu = require('radial-native-radial-menu');
+var RadialMenu = require('react-native-radial-menu');
 
 var Application = React.createClass({
   render: function() {
