@@ -28,6 +28,30 @@ var Application = React.createClass({
 })
 ```
 
+Alternative
+
+```javascript
+import RadialMenu from 'react-native-radial-menu';
+
+export default MyView extends from Component {
+  
+  render() {
+    return (
+      <View>
+        <RadialMenu onOpen={() => {}} onClose={() => {}}>
+          <Text>ROOT</Text>
+          <Text onSelect={() => {}}>A</Text>
+          <Text onSelect={() => {}}>B</Text>
+          <Text onSelect={() => {}}>C</Text>
+          <Text onSelect={() => {}}>D</Text>
+        </RadialMenu>
+      </View>
+     )
+  }
+
+}
+```
+
 ### Examples
 ```js
 // Examples Coming soon
